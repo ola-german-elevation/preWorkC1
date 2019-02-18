@@ -1,6 +1,8 @@
 #include "books.h"
 
-int main()
+const char* zones_str[] = {"kids", "highschool", "adult", "documentary", "comic"};
+
+int test_main()
 {
   test_books();
   return 0;
@@ -68,8 +70,10 @@ void init_item(Items *item, int internal_number){
 void test_books(){
 
     Books book1, book2;
-    Items item1;
+    Items item1, item2;
     init_item(&item1, 123);
+    init_item(&item2, 223);
+
     init_book(&book2, "hello", 123, 40, 3);
     init_book(&book1, "Veronica decide to die", 223, 30, 2);
     print_book(&book1); /* what do i pass here? a pointer? this way is an address*/
@@ -89,6 +93,6 @@ void test_books(){
       printf("Expect error: ********* error accure\n");
 
     print_item(&item1);
-
+    print_item(&item2);
 
 }

@@ -1,8 +1,11 @@
+#ifndef BOOKS_H
+#define BOOKS_H
+
 #include <stdio.h>
 #include <string.h>
 #define MAX_TITLE_LEN 50
 
-const char* zones_str[] = {"kids", "highschool", "adult", "documentary", "comic"};
+extern const char* zones_str[5];
 typedef enum {KIDS, HIGHSCHOOL, ADULT, DOCUMENTARY, COMICS} Zones;
 
 
@@ -30,3 +33,5 @@ void print_item(Items *item);
 int borrow_item(Items *item, int is_borrowing);
 void test_books();
 void init_item(Items *item, int internal_number);
+
+#endif
