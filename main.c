@@ -68,29 +68,29 @@ void scan_internal_number_from_user(int item_index)
 
 void do_actions_on_items()
 {
-  int choice =0;
-  int ans;
+  int choice = 0;
+  int ans = 0;
+
   while(choice != 9)
   {
   print_borrow_menu();
-  fflush(stdout);
   scanf("%d\n", &choice);
 
     switch(choice)
     {
        case 1 : /* borrow */
           ans = change_item_state_borrowing(1);
-          if (!ans)
-            printf("Attention! The Item is allready BORROWED !!!\n");
+          if (ans)
+            printf("Item Borrowed secsesfully\n");
           else
-            printf("option completed\n");
+            printf("Attention! The Item is allready BORROWED !!!\n");
           break;
        case 2 : /* unborrow */
           ans = change_item_state_borrowing(0);
-          if (!ans)
-            printf("Attention! The Item is NOT BORROWED !!!\n");
+          if (ans)
+            printf("Item Unborrowed secsesfully\n");
           else
-            printf("option completed\n");
+            printf("Attention! The Item is NOT BORROWED !!!\n");
           break;
         case 3:
           print_all_items();
@@ -138,7 +138,7 @@ int scan_serial_num()
   {
     printf("choose a serial number\n");
     fflush(stdout);
-    
+
     scanf("%d\n", &s_num);
 
     /*test if choice valid */
