@@ -4,25 +4,26 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_TITLE_LEN 50
+#define START_S_NUM 10000
 
-extern const char* zones_str[5];
-typedef enum {KIDS, HIGHSCHOOL, ADULT, DOCUMENTARY, COMICS} Zones;
-
+typedef enum {
+  KIDS, HIGHSCHOOL, ADULT, DOCUMENTARY, COMICS, FANTASY
+} Zones;
 
 
 /* todo: write down the padding */
 typedef struct {
-  unsigned short internal_number;  /* a number: 0 - 50,000 */
   long serial_num; /* 0 - 1,000,000 */
+  int internal_number;  /* a number: 0 - 50,000 */
   int is_borrowed; /* 0-false 1-true */
 }Items;
 
 /* BOOK */
 typedef struct {
   char title[MAX_TITLE_LEN];
-  unsigned short internal_number;  /* a number: 0 - 50,000 */
+  int internal_number;  /* a number: 0 - 50,000 */
   signed char promotion;   /* a number: (-100) - 100 */
-  Zones zone;
+  Zones zone; /* typdef enum */
 }Books;
 
 /* Decleretion */
