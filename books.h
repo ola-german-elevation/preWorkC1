@@ -13,7 +13,7 @@ typedef enum {
 
 /* todo: write down the padding */
 typedef struct {
-  long serial_num; /* 0 - 1,000,000 */
+  int serial_num; /* 0 - 1,000,000 */
   int internal_number;  /* a number: 0 - 50,000 */
   int is_borrowed; /* 0-false 1-true */
 }Items;

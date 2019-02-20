@@ -39,7 +39,9 @@ int sizeof_books(){
 
 const char* get_title_by_internal_number(int internal_number){
   int i;
-  for(i=0; i< sizeof_books(); ++i)
+  int size;
+  size = sizeof_books();
+  for(i=0; i< size; ++i)
   {
     if (all_books[i].internal_number == internal_number)
       return all_books[i].title;

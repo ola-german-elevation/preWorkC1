@@ -39,7 +39,7 @@ void print_all_items()
 void add_items()
 {
   int i;
-  printf("Add %d items, u need to enter internal_number numbers (0-50,000)\n",  ITEM_SIZE );
+  printf("Add items, u need to enter internal_number numbers (0-50,000)\n" );
 
   for (i=0; i< ITEM_SIZE; ++i)
     scan_internal_number_from_user(i);
@@ -52,13 +52,12 @@ void scan_internal_number_from_user(int item_index)
   while(1)
   {
     printf("Enter Internal Number: \n");
-    fflush(stdout);
-
-    scanf("%d\n", &internal_number);
+    scanf("%d", &internal_number);
 
     if (get_title_by_internal_number(internal_number))
     {
       init_item(&items[item_index], internal_number);
+      printf("Done init item %d in index: %d\n", internal_number, item_index);
       return;
     }
     printf("there is no internal number.\npls try again!\n");
@@ -74,7 +73,7 @@ void do_actions_on_items()
   while(choice != 9)
   {
   print_borrow_menu();
-  scanf("%d\n", &choice);
+  scanf("%d", &choice);
 
     switch(choice)
     {
@@ -137,16 +136,18 @@ int scan_serial_num()
   while(1)
   {
     printf("choose a serial number\n");
-    fflush(stdout);
-
-    scanf("%d\n", &s_num);
+    scanf("%d", &s_num);
 
     /*test if choice valid */
 
     if ((s_num < (START_S_NUM + ITEM_SIZE)) && (s_num >= START_S_NUM))
+    {
       return s_num;
+    }
     else
+    {
       printf("the serial number is wrong\n");
+    }
   }
 return -1;
 }
