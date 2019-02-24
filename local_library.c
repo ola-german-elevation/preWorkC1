@@ -43,7 +43,7 @@ const char* get_title_by_internal_number(int internal_number){
   size = sizeof_books();
   for(i=0; i< size; ++i)
   {
-    if (all_books[i].internal_number == internal_number)
+    if (all_books[i].internal_number == (unsigned short) internal_number)
       return all_books[i].title;
   }
   return NULL;

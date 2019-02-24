@@ -15,9 +15,9 @@ const char* get_zone_name(Zones z)
 }
 
 
-void init_book(Books *book, char* title, unsigned short internal_number, signed char promotion, Zones zone){
+void init_book(Books *book, char* title, int internal_number, signed char promotion, Zones zone){
   strcpy(book->title, title);
-  book->internal_number = internal_number;
+  book->internal_number = (unsigned short) internal_number;
   book->promotion = promotion;
   book->zone = zone;
 }
@@ -27,14 +27,14 @@ void print_book(Books *book)
   printf("\n\nBOOK SUMMERY\n-------------\n");
   printf("%s\n", book->title);
   printf("zone: %s\n", get_zone_name(book->zone));
-  printf("internal num: %d\n", book->internal_number);
+  printf("internal num: %d\n", (int) book->internal_number);
 }
 
 
 void print_item(Items *item){
   printf("\n-------------\n");
-  printf("internal num: %d\n",item->internal_number);
-  printf("serial number: %d\n", item->serial_num);
+  printf("internal num: %d\n", (int) item->internal_number);
+  printf("serial number: %d\n", (int) item->serial_num);
   if (item->is_borrowed)
     printf("Borrowed !!!\n");
   else
@@ -55,9 +55,11 @@ int borrow_item(Items *item, int is_borrowing)
 void init_item(Items *item, int internal_number)
 {
   static long serial_num = START_S_NUM;
-  item->internal_number = internal_number;
-  item->serial_num = serial_num;
+  item->internal_number = (unsigned short) internal_number;
+  item->serial_num = (unsigned long) serial_num;
   item->is_borrowed = 0;
+  item->borrowing_times = 0;
+  item->condition = 0;
   ++serial_num;
 }
 
@@ -90,4 +92,70 @@ void test_books()
     print_item(&item1);
     print_item(&item2);
 
+}
+
+
+/* condition of the book methods */
+int is_librarian_required(Items *item)
+{
+  if ((item->condition & CON_IS_P_COVER) ||
+      (item->condition & CON_IS_P_INDEX) ||
+      (item->condition & CON_IS_BAR_CODE))
+      return 1;
+  return 0;
+}
+
+
+int is_bookbinder_required(Items *item)
+{
+  if ((item->condition & CON_IS_BAR_SPINE_BROKEN) ||
+      (item->condition & CON_IS_MISSING_PAGES) ||
+      (item->condition & CON_IS_STAINED_PAGES))
+      return 1;
+  return 0;
+}
+
+
+int is_repairable(Items *item)
+{
+  if ((item->condition & CON_IS_STAINED_PAGES) ||
+      (item->condition & CON_IS_MISSING_PAGES))
+      return 0;
+  return 1;
+}
+
+
+int is_ok(Items *item)
+{
+  if (item->condition == 0)
+    return 1;
+  return 0;
+}
+
+
+int is_useless(Items *item)
+{
+  unsigned int num;
+  int bit;
+  int issues;
+
+  issues = 0;
+  num = item->condition;
+
+  for (bit=0; bit<(sizeof(unsigned int) * 8); ++bit)
+  {
+    issues += num & 0x01;
+    /* printf("%i ", num & 0x01); */
+    num = num >> 1;
+  }
+  if (issues >= 4)
+    return 1;
+  return 0;
+}
+
+
+int are_in_same_condition(Items *item1, Items *item2){
+  if ((item1->condition == item2->condition))
+    return 1;
+  return 0;
 }
