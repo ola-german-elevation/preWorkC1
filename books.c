@@ -1,11 +1,46 @@
 #include "books.h"
-
+#include <stdlib.h>
 static const char* zones_str[] = {"kids", "highschool", "adult", "documentary", "comic", "fantasy"};
 
 int test_main()
 {
   test_books();
   return 0;
+}
+
+
+Items* create_item(){
+  Items *item;
+  item = (Items*) malloc(sizeof(Items));
+
+  if (item)
+    return item;
+  else
+    printf("could not allocate ITEM !!!");
+
+  return 0;
+}
+
+
+Books* create_book(){
+  Books *book;
+  book = (Books*) malloc(sizeof(Books));
+
+  if (book)
+    return book;
+  return 0;
+}
+
+
+void free_item(Items *item)
+{
+  free(item);
+}
+
+
+void free_book(Books *book)
+{
+  free(book);
 }
 
 
@@ -47,7 +82,10 @@ int borrow_item(Items *item, int is_borrowing)
 
   int ans = item->is_borrowed ^ is_borrowing;
   if (ans)
+  {
     item->is_borrowed = !item->is_borrowed;
+    ++(item->borrowing_times);
+  }
   return ans;
 }
 
@@ -115,7 +153,7 @@ int is_bookbinder_required(Items *item)
   return 0;
 }
 
-
+/* todo: TEST this function */
 int is_repairable(Items *item)
 {
   if ((item->condition & CON_IS_STAINED_PAGES) ||
@@ -153,6 +191,7 @@ int is_useless(Items *item)
   return 0;
 }
 
+/* todo: TEST this function */
 
 int are_in_same_condition(Items *item1, Items *item2){
   if ((item1->condition == item2->condition))

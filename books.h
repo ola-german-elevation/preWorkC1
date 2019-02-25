@@ -58,4 +58,9 @@ int is_repairable(Items *item);
 int is_ok(Items *item);
 int is_useless(Items *item);
 int are_in_same_condition(Items *item1, Items *item2);
+Items* create_item();
+Books* create_book();
+void free_book(Books *book);
+void free_item(Items *item);
+
 #endif
