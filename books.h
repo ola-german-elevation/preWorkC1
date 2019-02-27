@@ -58,8 +58,8 @@ int is_repairable(Items *item);
 int is_ok(Items *item);
 int is_useless(Items *item);
 int are_in_same_condition(Items *item1, Items *item2);
-Items* create_item();
-Books* create_book();
+Items* create_item(int internal_number);
+Books* create_book(char* title, int internal_number, signed char promotion, Zones zone);
 void free_book(Books *book);
 void free_item(Items *item);
 

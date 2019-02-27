@@ -19,7 +19,8 @@ void print_borrow_menu();
 
 int main()
 {
-  add_items();
+  int items_len;
+  items_len = add_items();
   do_actions_on_items();
   print_all_items();
 
@@ -39,7 +40,7 @@ void print_all_items()
 void add_items()
 {
   int i;
-  printf("Add items, u need to enter internal_number numbers (0-50,000)\n" );
+  printf("How many items do you want to add?\n");
 
   for (i=0; i< ITEM_SIZE; ++i)
     scan_internal_number_from_user(i);

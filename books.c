@@ -1,6 +1,9 @@
-#include "books.h"
 #include <stdlib.h>
+#include "books.h"
+
+
 static const char* zones_str[] = {"kids", "highschool", "adult", "documentary", "comic", "fantasy"};
+void print_condition(Items *item);
 
 int test_main()
 {
@@ -9,25 +12,25 @@ int test_main()
 }
 
 
-Items* create_item(){
+Items* create_item(int internal_number){
   Items *item;
   item = (Items*) malloc(sizeof(Items));
 
   if (item)
-    return item;
+    init_item(item, internal_number);
   else
     printf("could not allocate ITEM !!!");
 
-  return 0;
+  return item;
 }
 
 
-Books* create_book(){
+Books* create_book(char* title, int internal_number, signed char promotion, Zones zone){
   Books *book;
   book = (Books*) malloc(sizeof(Books));
 
   if (book)
-    return book;
+    init_book(book, title, internal_number, promotion, zone);
   return 0;
 }
 
@@ -67,14 +70,49 @@ void print_book(Books *book)
 
 
 void print_item(Items *item){
+  if (!item)
+  {
+    printf("could not print an empty item\n");
+    return;
+  }
   printf("\n-------------\n");
   printf("internal num: %d\n", (int) item->internal_number);
+  /* printf("Title: %s\n", get_title_by_internal_number(item->internal_number)); */
   printf("serial number: %d\n", (int) item->serial_num);
   if (item->is_borrowed)
     printf("Borrowed !!!\n");
   else
     printf("free to take\n");
+
+  printf("problems with a book:\n");
+  print_condition(item);
+
 }
+
+
+/* printing all the problems with an item */
+void print_condition(Items *item)
+{
+
+  if(item->condition & CON_IS_P_COVER)
+    printf("problem in its cover\n");
+
+  if(item->condition & CON_IS_P_INDEX)
+    printf("problem in its index\n");
+
+  if(item->condition & CON_IS_MISSING_PAGES)
+    printf("there are missing pages\n");
+
+  if(item->condition & CON_IS_BAR_CODE)
+    printf("problem in its bar code\n");
+
+  if(item->condition & CON_IS_BAR_SPINE_BROKEN)
+    printf("bar spine broken\n");
+
+  if(item->condition & CON_IS_STAINED_PAGES)
+    printf("there is staines pages\n");
+}
+
 /* borrow/ unborrow item
    return 0 if error accures */
 int borrow_item(Items *item, int is_borrowing)
@@ -110,14 +148,14 @@ void test_books()
     init_item(&item2, 223);
 
     init_book(&book2, "hello", 123, 40, 3);
-    init_book(&book1, "Veronica decide to die", 223, 30, 2);
+    init_book(&book1, "Veronica decides to die", 223, 30, 2);
     print_book(&book1); /* what do i pass here? a pointer? this way is an address*/
     print_book(&book2);
     print_item(&item1);
     if (borrow_item(&item1, 1)) /* borrow */
       print_item(&item1);
     else
-      printf("********* error accure\n");
+      printf("********* error occured\n");
     borrow_item(&item1, 0); /* unborrow */
     print_item(&item1);
 

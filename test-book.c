@@ -23,6 +23,8 @@ void test_books_bitwise()
     print_book(&book2);
     print_item(&item1);
     item1.condition = 11;
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_librarian_required(&item1))
     {
@@ -30,6 +32,8 @@ void test_books_bitwise()
     }
     /* is_librarian_required */
     item1.condition = 1;
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_librarian_required(&item1))
     {
@@ -37,6 +41,8 @@ void test_books_bitwise()
     }
 
     item1.condition = 10;
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_librarian_required(&item1))
     {
@@ -44,6 +50,8 @@ void test_books_bitwise()
     }
 
     item1.condition = 4;
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (~is_librarian_required(&item1))
     {
@@ -52,6 +60,8 @@ void test_books_bitwise()
 
 
     item1.condition = 36;  /* 100100 :b */
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_bookbinder_required(&item1))
     {
@@ -59,6 +69,8 @@ void test_books_bitwise()
     }
 
     item1.condition = 32;  /* 100100 :b */
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_bookbinder_required(&item1))
     {
@@ -67,6 +79,8 @@ void test_books_bitwise()
 
 
     item1.condition = 11;  /* 100100 :b */
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (~is_bookbinder_required(&item1))
     {
@@ -82,6 +96,8 @@ void test_books_bitwise()
     }
 
     item1.condition = 43; /* 4 issues */
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_useless(&item1))
     {
@@ -89,6 +105,8 @@ void test_books_bitwise()
     }
 
     item1.condition = 31; /* 5 issues */
+    print_item(&item1);
+
     printf("condition: %d\n", item1.condition);
     if (is_useless(&item1))
     {
